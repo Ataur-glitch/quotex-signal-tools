@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quotex Signal Generator</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f9f9f9; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, select, button { width: 100%; padding: 10px; margin: 10px 0; font-size: 16px; }
+    button { background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    #signal { font-size: 20px; font-weight: bold; text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Advanced Quotex Binary Signal Generator</h2>
+    <label>RSI Value:</label>
+    <input type="number" id="rsi" placeholder="Enter RSI (0-100)" />
+    <label>Price Touching:</label>
+    <select id="price">
+      <option value="none">None</option>
+      <option value="upper">Upper Bollinger Band</option>
+      <option value="lower">Lower Bollinger Band</option>
+    </select>
+    <label>MACD Crossover:</label>
+    <select id="macd">
+      <option value="none">No Signal</option>
+      <option value="bullish">Bullish Crossover</option>
+      <option value="bearish">Bearish Crossover</option>
+    </select>
+    <button onclick="generateSignal()">Generate Signal</button>
+    <div id="signal"></div>
+  </div>
+  <script>
+    function generateSignal() {
+      const rsi = parseInt(document.getElementById('rsi').value);
+      const price = document.getElementById('price').value;
+      const macd = document.getElementById('macd').value;
+      let signal = 'No strong signal';
+
+      if (rsi < 30 && price === 'lower' && macd === 'bullish') {
+        signal = 'CALL 📈';
+      } else if (rsi > 70 && price === 'upper' && macd === 'bearish') {
+        signal = 'PUT 📉';
+      }
+
+      document.getElementById('signal').innerText = 'Signal: ' + signal;
+    }
+  </script>
+</body>
+</html>
